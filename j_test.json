@@ -1,0 +1,11 @@
+{"now_dt":"2021-06-18T19:04:57.568634Z",
+  "fact":{"polar":false,"temp":20,"icon":"skc_n","pressure_mm":755,"wind_dir":"n","feels_like":19,"wind_gust":3.7,"condition":"clear","pressure_pa":1006,"humidity":37,"season":"summer","wind_speed":0,"daytime":"n","obs_time":1624042800},
+  "now":1624043097,
+  "forecast":{
+    "date":"2021-06-19","sunrise":"03:44","week":24,"moon_text":"moon-code-13","date_ts":1624050000,"sunset":"21:17",
+    "parts":[
+      {"polar":false,"pressure_mm":756,"icon":"skc_n","prec_period":360,"wind_dir":"sw","temp_max":18,"feels_like":16,"wind_gust":3.2,"temp_min":17,"condition":"clear","temp_avg":17,"pressure_pa":1007,"humidity":73,"wind_speed":1.9,"daytime":"n","part_name":"night","prec_mm":0,"prec_prob":0},
+      {"polar":false,"pressure_mm":756,"icon":"skc_d","prec_period":360,"wind_dir":"sw","temp_max":27,"feels_like":25,"wind_gust":5.9,"temp_min":19,"condition":"clear","temp_avg":24,"pressure_pa":1007,"humidity":55,"wind_speed":2.6,"daytime":"d","part_name":"morning","prec_mm":0,"prec_prob":0}
+    ],
+    "moon_code":13},
+  "info":{"lon":37.620393,"url":"https://yandex.ru/pogoda/213?lat=55.75396&lon=37.620393","lat":55.75396}}
