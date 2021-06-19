@@ -35,6 +35,9 @@ public class WeatherBot extends TelegramLongPollingBot {
                         sendWeather(weather, update.getMessage().getChatId().toString());
                         break;
                     }
+                    case "start": {
+                        break;
+                    }
 
                     default: {
                         SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
@@ -68,7 +71,7 @@ public class WeatherBot extends TelegramLongPollingBot {
         curr_message.setChatId(chatId);
         curr_message.enableMarkdown(true);
         curr_message.setText(String.format("%s\nCurrent temp: %d\nFeels like: %d",
-                EmojiParser.parseToUnicode(":cat:"),
+                getWeatherEmoji(weather.getJSONObject("fact").getString("condition")),
                 weather.getJSONObject("fact").getInt("temp"),
                 weather.getJSONObject("fact").getInt("feels_like")));
         try {
@@ -79,12 +82,26 @@ public class WeatherBot extends TelegramLongPollingBot {
     }
 
     private String getWeatherEmoji(String weather) {
-        String emoji = null;
+        String emoji = ":cat:";
         if (weather.matches(".*snow.*")) {
             emoji = ":snowflake:";
         }
-        else {
-            emoji = ":cat:";
+        else if (weather.matches("clear")) {
+            emoji = ":sunny:";
+        }
+        else if (weather.matches("owercast")) {
+            emoji = ":foggy:";
+        }
+        else if (weather.matches("thunderstorm.*")) {
+            emoji = ":sunny:";
+        }
+        else if (weather.matches(".*cloudy")) {
+            emoji = ":cloud:";
+        }
+        else if (weather.matches(".*rain") ||
+                weather.matches("shower") ||
+                weather.matches("drizzle")) {
+            emoji = ":umbrella:";
         }
         return EmojiParser.parseToUnicode(emoji);
     }
