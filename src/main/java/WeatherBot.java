@@ -79,7 +79,13 @@ public class WeatherBot extends TelegramLongPollingBot {
     }
 
     private String getWeatherEmoji(String weather) {
-        //TODO convert name of emoji to unicode
-        return null;
+        String emoji = null;
+        if (weather.matches(".*snow.*")) {
+            emoji = ":snowflake:";
+        }
+        else {
+            emoji = ":cat:";
+        }
+        return EmojiParser.parseToUnicode(emoji);
     }
 }
