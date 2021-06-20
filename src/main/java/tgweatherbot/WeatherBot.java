@@ -72,7 +72,7 @@ public class WeatherBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "1664450075:AAHvnffYMXdUuK_O79sRdLSRqrYQNBvg5Mw";
+        return System.getenv("TK_TOKEN");
     }
 
     public void sendShortWeather(JSONObject weather, String chatId) {

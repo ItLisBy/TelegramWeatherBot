@@ -13,7 +13,7 @@ import tgweatherbot.basicClasses.City;
 public class WeatherApi {
 
     public static String getWeatherApiToken() {
-        return "ba42e722-3ebb-4ebb-886e-42442273cc21";
+        return System.getenv("WEATHER_TOKEN");
     }
 
     public static String getWeatherProviderUrl() {
