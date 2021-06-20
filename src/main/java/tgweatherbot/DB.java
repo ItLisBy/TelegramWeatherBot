@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class DB {
 
     public static Connection connect() throws SQLException {
-        Connection connection = DriverManager.getConnection("JDBC_DATABASE_URL");
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        Connection connection = DriverManager.getConnection(dbUrl);
         Statement statement = connection.createStatement();
         statement.setQueryTimeout(30);
 
