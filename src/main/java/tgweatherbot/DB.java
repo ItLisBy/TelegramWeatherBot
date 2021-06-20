@@ -12,9 +12,11 @@ public class DB {
         City r_city = null;
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:data.sqlite");
+            connection = DriverManager.getConnection("JDBC_DATABASE_URL");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
+
+            //statement.executeUpdate("CREATE TABLE IF NOT EXISTS users ");
 
             ResultSet rs = statement.executeQuery(String.format("SELECT * FROM cities WHERE name = '%s'", city.toLowerCase()));
             rs.next();
@@ -38,7 +40,7 @@ public class DB {
         ArrayList<City> cities = new ArrayList<>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:data.sqlite");
+            connection = DriverManager.getConnection("JDBC_DATABASE_URL");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
@@ -65,7 +67,7 @@ public class DB {
         User user = null;
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:data.sqlite");
+            connection = DriverManager.getConnection("JDBC_DATABASE_URL");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
@@ -91,7 +93,7 @@ public class DB {
         ArrayList<User> user = new ArrayList<>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:data.sqlite");
+            connection = DriverManager.getConnection("JDBC_DATABASE_URL");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
@@ -117,7 +119,7 @@ public class DB {
     public static void addUser(String name, String chatID, String city) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:data.sqlite");
+            connection = DriverManager.getConnection("JDBC_DATABASE_URL");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
