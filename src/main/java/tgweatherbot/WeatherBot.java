@@ -1,13 +1,13 @@
+package tgweatherbot;
+
 import com.vdurmont.emoji.EmojiParser;
 import org.json.JSONObject;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import tgweatherbot.basicClasses.User;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -32,10 +32,19 @@ public class WeatherBot extends TelegramLongPollingBot {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        sendWeather(weather, update.getMessage().getChatId().toString());
+                        sendShortWeather(weather, update.getMessage().getChatId().toString());
+                        break;
+                    }
+                    case "w": {
+                        WeatherApi.getWeatherWeb();
                         break;
                     }
                     case "start": {
+                        break;
+                    }
+                    case "db": {
+                        System.out.println("DB");
+                        DB.addUser(new User("lis", update.getMessage().getChatId().toString(), "Miensk"));
                         break;
                     }
 
@@ -63,14 +72,15 @@ public class WeatherBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "1664450075:AAHvnffYMXdUuK_O79sRdLSRqrYQNBvg5Mw";
+        return System.getenv("TG_TOKEN");
     }
 
-    public void sendWeather(JSONObject weather, String chatId) {
+    public void sendShortWeather(JSONObject weather, String chatId) {
         SendMessage curr_message = new SendMessage(); // Create a SendMessage object with mandatory fields
         curr_message.setChatId(chatId);
         curr_message.enableMarkdown(true);
-        curr_message.setText(String.format("%s\nCurrent temp: %d\nFeels like: %d",
+        curr_message.setText(String.format("City:%s %s\nCurrent temp: %d\nFeels like: %d",
+                "Minsk",
                 getWeatherEmoji(weather.getJSONObject("fact").getString("condition")),
                 weather.getJSONObject("fact").getInt("temp"),
                 weather.getJSONObject("fact").getInt("feels_like")));

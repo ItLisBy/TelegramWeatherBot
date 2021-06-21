@@ -1,3 +1,7 @@
 target
 .idea
+<<<<<<< HEAD
 dependency-reduced-pom.xml
+=======
+.env
+>>>>>>> f3a7bd0c3bd14ff52414c36bc6f3fd7fd52b72eb
