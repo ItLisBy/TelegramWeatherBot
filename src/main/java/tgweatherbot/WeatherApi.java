@@ -12,6 +12,8 @@ import tgweatherbot.basicClasses.City;
 
 public class WeatherApi {
 
+    static JSONObject all_weather = new JSONObject();
+
     public static String getWeatherApiToken() {
         return System.getenv("WEATHER_TOKEN");
     }
@@ -20,29 +22,8 @@ public class WeatherApi {
         return "https://api.weather.yandex.ru/v2/informers";
     }
 
-    public static JSONObject getWeather(String lat, String lon) throws IOException {
-        JSONObject json_response = null;
-
-        OkHttpClient httpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(getWeatherProviderUrl() + String.format("?lat=%s&lon=%s", lat, lon))
-                .addHeader("X-Yandex-API-Key", getWeatherApiToken())  // add request headers
-                .build();
-
-        try (Response response = httpClient.newCall(request).execute()) {
-
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-            // Get response body
-            //System.out.println(response.body().string());
-            json_response = new JSONObject(response.body().string());
-        }
-
-        return json_response;
-    }
-
-    public static JSONObject getWeather(City city) throws IOException {
-        return getWeather(city.getLat(), city.getLon());
+    public static JSONObject getWeather(City city) {
+        return all_weather.getJSONObject(city.getName());
     }
 
     public static void getWeatherWeb() {
@@ -63,14 +44,7 @@ public class WeatherApi {
                 e.printStackTrace();
             }
         }
-        try {
-            FileWriter json = new FileWriter("weather.json");
-            json.write(json_response.toString());
-            json.flush();
-            json.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        all_weather = json_response;
     }
 
     public class ScheduleRequests {

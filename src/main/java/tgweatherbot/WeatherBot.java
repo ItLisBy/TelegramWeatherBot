@@ -1,13 +1,17 @@
 package tgweatherbot;
 
+import com.fasterxml.jackson.core.util.BufferRecycler;
 import com.vdurmont.emoji.EmojiParser;
 import org.json.JSONObject;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import tgweatherbot.basicClasses.City;
 import tgweatherbot.basicClasses.User;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -21,17 +25,8 @@ public class WeatherBot extends TelegramLongPollingBot {
                 switch (command) {
                     case "weather": {
                         JSONObject weather = null;
-                        try {
-                             weather = WeatherApi.getWeather("55.75396", "37.620393");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try (FileWriter j_file = new FileWriter("j_test.json", false)){
-                            j_file.write(weather.toString());
-                            j_file.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        City c = DB.getCity(DB.getUser(update.getMessage().getChatId().toString()).getCity());
+                        weather = WeatherApi.getWeather(c);
                         sendShortWeather(weather, update.getMessage().getChatId().toString());
                         break;
                     }
