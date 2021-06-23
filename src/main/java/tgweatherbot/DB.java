@@ -84,8 +84,8 @@ public class DB {
             ResultSet rs = statement.executeQuery(String.format("SELECT * FROM users WHERE chatID = '%s'", chatID));
             rs.next();
             user = new User(rs.getString("name"),
-                    rs.getString("lat"),
-                    rs.getString("lon"));
+                    rs.getString("chatID"),
+                    rs.getString("city"));
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
